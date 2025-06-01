@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WANDR NFT Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('forest-bg.jpg.PNG') no-repeat center center fixed;
+      background-size: cover;
+      color: #e0ffe5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      backdrop-filter: blur(4px);
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 8px #000;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 6px #000;
+    }
+
+    #mintButton {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background: #00ffae;
+      border: none;
+      border-radius: 12px;
+      color: #0a0a0a;
+      cursor: pointer;
+      box-shadow: 0px 0px 20px 4px #00ffae;
+      transition: background 0.3s ease;
+    }
+
+    #mintButton:hover {
+      background: #00c488;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      text-shadow: 1px 1px 4px #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>🜃 WANDR NFT Mint</h1>
+  <p>Step into the myth. Mint your sacred NFT and connect to the forest Web3 grid.</p>
+  <button id="mintButton">🌲 Mint My NFT</button>
+
+  <div class="footer">Connected to Ethereum (Goerli) • Powered by WANDR</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <script>
+    const contractAddress = "YOUR_DEPLOYED_CONTRACT_ADDRESS"; // Replace after deploy
+    const abi = [
+      "function mint(string memory _tokenURI) public returns (uint256)"
+    ];
+
+    document.getElementById('mintButton').onclick = async () => {
+      if (!window.ethereum) {
+        alert('Please install MetaMask to mint.');
+        return;
+      }
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+
+      try {
+        const tokenURI = prompt("Enter IPFS metadata URI:");
+        const tx = await contract.mint(tokenURI);
+        await tx.wait();
+        alert("NFT Minted Successfully!");
+      } catch (err) {
+        console.error(err);
+        alert("Minting failed. See console for details.");
+      }
+    };
+  </script>
+</body>
+</html>
