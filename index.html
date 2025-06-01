@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WANDR - Mystic Mesh Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-wallets@0.20.6/lib/index.umd.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Share Tech Mono', monospace;
+      color: #e5f5e0;
+      background: url('forest-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(2px);
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 3rem;
+      min-height: 100vh;
+    }
+    h1 {
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 3rem;
+      text-shadow: 0 0 10px #6fff94;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .btn {
+      background-color: #00ff99;
+      border: none;
+      padding: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 10px;
+      color: #111;
+      box-shadow: 0 0 10px #00ff99;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #00cc7a;
+    }
+    .qr-code {
+      width: 180px;
+      margin-top: 1rem;
+      border: 2px solid #00ff99;
+      border-radius: 12px;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>🧭 WANDR: The Forest Future Mesh</h1>
+
+    <div class="section">
+      <p><strong>Free Internet & Cell that Pays You.</strong><br>
+      Solar-powered, decentralized WiFi and sensor node made for wilderness protection and emergency response. Built by <strong>420Goldenage.eth</strong>.</p>
+    </div>
+
+    <div class="section">
+      <h2>🌿 Features</h2>
+      <ul>
+        <li>📡 Emergency Mesh Hotspot (Mobile + Off-grid)</li>
+        <li>🔥 Wildfire & Environmental Sensor Data</li>
+        <li>🎖 NFT Rewards & Digital Collectibles</li>
+        <li>🪵 Forest Service Collaboration & Trail Lore</li>
+        <li>👣 Earn by Expanding the Network</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🦾 Wallet Connect</h2>
+      <button class="btn" onclick="connectWallet()">Connect Solana Wallet</button>
+      <p id="wallet-address"></p>
+    </div>
+
+    <div class="section">
+      <h2>🔮 Sensor Data (Demo)</h2>
+      <p>🔥 Temperature: <span id="temp">22.4°C</span><br>
+         💨 Air Quality: <span id="air">Good</span><br>
+         🛰 GPS: <span id="gps">39.6386° N, 106.0632° W</span></p>
+    </div>
+
+    <div class="section">
+      <h2>📱 Scan to Join</h2>
+      <img src="wandr-qr.png" alt="WANDR QR Code" class="qr-code"/>
+    </div>
+
+    <footer>
+      ⛺️ A mission by 420Goldenage.eth — forest-powered and future-bound. Built with love for Earth.
+    </footer>
+  </div>
+
+  <script>
+    async function connectWallet() {
+      try {
+        const resp = await window.solana.connect();
+        document.getElementById('wallet-address').innerText = "Connected: " + resp.publicKey.toString();
+      } catch (err) {
+        alert("Wallet connect failed. Do you have Phantom installed?");
+      }
+    }
+
+    // Inject Phantom
+    window.addEventListener('load', function() {
+      if (window.solana && window.solana.isPhantom) {
+        window.solana.connect({ onlyIfTrusted: true }).then(res => {
+          document.getElementById('wallet-address').innerText = "Connected: " + res.publicKey.toString();
+        }).catch(() => {});
+      }
+    });
+  </script>
+</body>
+</html>
