@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WANDR — Mesh the Myth</title>
+  <link rel="icon" href="assets/wandr-qr.png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Unbounded', sans-serif;
+      background: url('assets/forest-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #e3ffe9;
+      text-shadow: 1px 1px 8px #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      backdrop-filter: blur(3px);
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin: 0.2em 0;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #a6ffcf;
+      margin-bottom: 1.5em;
+    }
+
+    section {
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #00ffc6;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #00ffc6;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00ffc6;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #00c29a;
+      transform: scale(1.05);
+    }
+
+    .qr {
+      margin-top: 30px;
+      max-width: 140px;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #b0ffd3;
+    }
+  </style>
+</head>
+<body>
+
+  <section>
+    <h1>🜃 WANDR</h1>
+    <h2>Mesh the Myth — Mint Your Forest Key</h2>
+    <p>
+      WANDR is a decentralized forest mesh network powered by solar, lore, and blockchain. 
+      Each NFT is a **key to connect**, access the off-grid signal, and prove you’re part of the living grid. 
+    </p>
+    <ul>
+      <li>🌲 Emergency WiFi + wildfire alerts</li>
+      <li>🧬 On-chain trail lore & NFT story drops</li>
+      <li>🤝 Connect with nearby WANDRs via mesh</li>
+      <li>💰 Earn & trade using your node + NFT</li>
+    </ul>
+    <p><strong>Mint yours. Join the signal. Awaken the forest.</strong></p>
+    <button id="connectWallet">🔗 Connect Wallet</button>
+    <button id="mintButton">🌲 Mint My WANDR NFT</button>
+    <img class="qr" src="assets/wandr-qr.png" alt="WANDR QR Code" />
+  </section>
+
+  <footer>
+    Connected to Ethereum (Goerli or Mainnet) • MetaMask Required • Built with 🌿 by 420Goldenage.eth
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <script>
+    let walletAddress;
+    const contractAddress = "YOUR_CONTRACT_ADDRESS"; // Replace with your contract
+    const abi = [
+      "function mint(string memory _tokenURI) public returns (uint256)"
+    ];
+
+    document.getElementById("connectWallet").onclick = async () => {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+          walletAddress = accounts[0];
+          alert("Connected wallet: " + walletAddress);
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        alert("Please install MetaMask.");
+      }
+    };
+
+    document.getElementById("mintButton").onclick = async () => {
+      if (!window.ethereum) return alert("MetaMask is required.");
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+
+      const tokenURI = prompt("Enter IPFS metadata URI (e.g., https://...):");
+      if (!tokenURI) return;
+
+      try {
+        const tx = await contract.mint(tokenURI);
+        await tx.wait();
+        alert("🌱 NFT Minted!");
+      } catch (err) {
+        console.error(err);
+        alert("Mint failed.");
+      }
+    };
+  </script>
+
+</body>
+</html>
