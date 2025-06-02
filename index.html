@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WANDR: Forest Mesh Nodes</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('./forest-bg.jpg.PNG');
+      background-size: cover;
+      background-position: center;
+      color: #cce7dd;
+      text-shadow: 0 0 5px #0f0f0f;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    header img {
+      width: 300px;
+      max-width: 80%;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .wallet {
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    button {
+      background-color: #144c3f;
+      color: #d0f2e3;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 0.5rem;
+      box-shadow: 0 0 10px #083c30;
+    }
+
+    .content {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 1rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      margin-top: 1rem;
+      border-radius: 1rem;
+    }
+
+    .qr {
+      display: block;
+      margin: 3rem auto;
+      width: 250px;
+      border-radius: 1rem;
+    }
+
+    ul {
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #99b3a3;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="./wandr-qr.png.PNG" alt="WANDR QR" class="qr" />
+    <img src="./forest-bg.jpg.PNG" alt="WANDR Logo" />
+    <h1>WANDR</h1>
+    <p><em>Wi-Fi. Aid. Nodes. Decentralized. Resilient.</em></p>
+  </header>
+
+  <div class="wallet">
+    <button onclick="connectWallet()">🔌 Connect Wallet (Ethereum)</button>
+    <button onclick="mintNFT()">🌿 Mint Node NFT</button>
+  </div>
+
+  <div class="content">
+    <h2>🌍 Why WANDR Matters</h2>
+    <ul>
+      <li>🆘 Emergency WiFi & aid when centralized systems fail</li>
+      <li>🛰️ Decentralized Helium-compatible node mesh</li>
+      <li>🌲 Forest-integrated environmental sensors (fires, temp, etc.)</li>
+      <li>💸 Earn $WANDR tokens for helping maintain the mesh</li>
+      <li>🎖️ NFT-backed proof-of-impact for node operators</li>
+    </ul>
+
+    <h2>📡 Live Hotspot Map</h2>
+    <iframe src="https://explorer.helium.com/hotspots" title="Helium Hotspots Map"></iframe>
+
+    <h2>🧭 Node Tracker</h2>
+    <p>Coming soon: Interactive map of WANDR deployments.</p>
+
+    <h2>📊 Forest Sensor Feed (Sample)</h2>
+    <ul>
+      <li>🔥 Smoke detected: <strong>No</strong></li>
+      <li>🌡️ Temperature: <strong>22.4°C</strong></li>
+      <li>💧 Humidity: <strong>63%</strong></li>
+      <li>🟢 Node health: <strong>All systems go</strong></li>
+    </ul>
+
+    <h2>🪙 $WANDR Token</h2>
+    <p>The forest-native ERC-20 token is coming soon. Early node runners and NFT holders will be eligible for the airdrop.</p>
+  </div>
+
+  <img src="./wandr-qr.png.PNG" alt="QR Code" class="qr"/>
+
+  <footer>
+    ⟁ Forged in the forest • Powered by purpose • 2025 WANDR Network
+  </footer>
+
+  <script>
+    async function connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          alert('Connected wallet: ' + accounts[0]);
+        } catch (err) {
+          alert('Wallet connection failed.');
+        }
+      } else {
+        alert('Please install MetaMask.');
+      }
+    }
+
+    function mintNFT() {
+      alert('Minting is not live yet. Stay tuned for the WANDR NFT drop 🌲');
+    }
+  </script>
+</body>
+</html>
